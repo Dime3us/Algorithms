@@ -61,19 +61,19 @@ public class Homework4 {
     }
 
     private static String mergeString(String a, String b) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         String temp = a.length() < b.length() ? b : a;
         for (int i = 0; i < temp.length(); i++) {
             if (i < a.length() && i < b.length()) {
-                result += a.charAt(i);
-                result += b.charAt(i);
+                result.append(a.charAt(i));
+                result.append(b.charAt(i));
                 continue;
             }
-            result += temp.charAt(i);
+            result.append(temp.charAt(i));
         }
 
 
-        return result;
+        return result.toString();
     }
 
     private static int missingElement(int[] array, int n) {
