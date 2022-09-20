@@ -16,7 +16,7 @@ public class Homework5 {
     private static void quickSort(int[] array, int start, int end) {
         if (start < end) {
 
-            int indexPivot = getIndexPivot(array, start, end, 6);
+            int indexPivot = getIndexPivotMiddle(array, start, end, 6);
             quickSort(array, start, indexPivot - 1);
             quickSort(array, indexPivot + 1, end);
 
@@ -24,18 +24,15 @@ public class Homework5 {
     }
 
     private static int getIndexPivot(int[] array, int start, int end, int index) {
-        int pivot = array[index];
+        int mid = start + (end - start) / 2;
+        int pivot = array[mid];
         int indexPivot = start;
-        System.out.println(indexPivot);
-        System.out.println(Arrays.toString(array));
+
         for (int i = start; i < end; i++) {
             if (array[i] <= pivot) {
                 swap(array, indexPivot, i);
                 indexPivot++;
-                System.out.println(indexPivot);
-                System.out.println("в форе");
             }
-            System.out.println(Arrays.toString(array));
         }
         swap(array, indexPivot, end);
 
@@ -49,5 +46,36 @@ public class Homework5 {
         array[second] = temp;
     }
 
+    private static int getIndexPivotMiddle(int[] array, int start, int end, int index) {
+        int mid = start + (end - start) / 2;
+        int pivot = array[mid];
+        int indexPivot = mid;   //index 0
+        while (start < end) {
+            while ((array[start] < pivot)) {
+                start++;
+            }
+            while ((array[end] > pivot)) {
+                end--;
+            }
+            if (start <= end) {
+                swap(array, start, end);
+                if (end == indexPivot) {
+                    indexPivot = start;
+                } else if (start == indexPivot) {
+                    indexPivot = end;
+                }
+                start++;
+                end--;
+            }
+        }
 
+        if(start < indexPivot && array[start] > array[indexPivot]){
+            swap(array,indexPivot,start);
+            indexPivot = start;
+        } else if (end > indexPivot && array[end] < array[indexPivot]) {
+            swap(array,indexPivot, end);
+            indexPivot = end;
+        }
+        return indexPivot;
+    }
 }

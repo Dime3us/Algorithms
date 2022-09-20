@@ -3,7 +3,7 @@ import java.util.*;
 public class Homework4 {
     public static void main(String[] args) {
         int[] array = {7, 3, 5, 9, 4, 1};
-        int[] sortedArray = {0, 1, 3, 6, 9};
+        int[] sortedArray = {4, 7, 9, 10, 14};
         System.out.println(Arrays.toString(array));
         mergeSort(array, array.length);
         System.out.println(Arrays.toString(array));
@@ -12,6 +12,9 @@ public class Homework4 {
         System.out.println(mergeString(string, string1));
         System.out.println(missingElement(sortedArray, 1));
         System.out.println(missingElementOlogN(sortedArray, 1));
+        Homework4 homework4 = new Homework4();
+        int missElement = homework4.binarySearchMissingElement(1, sortedArray);
+        System.out.println(missElement);
     }
 
     private static void mergeSort(int[] array, int length) {
@@ -113,6 +116,37 @@ public class Homework4 {
         Collections.sort(temp);
         System.out.println(temp);
         return temp.get(n - 1);
+    }
+
+
+    private int missingCount(int index, int[] nums) {
+        return nums[index] - nums[0] - index;
+    }
+
+    private int binarySearchMissingElement(int n, int[] nums) {
+        int missingCount = missingCount(nums.length - 1, nums);
+        if (n > missingCount) {
+            return nums[nums.length - 1] + n - missingCount;
+        }
+        int left = 0;
+        int right = nums.length - 1;
+        int mid = 0;
+        while (left != right) {
+            mid = left + (right - left) / 2;
+
+            missingCount = missingCount(mid, nums);
+            if (missingCount < n) {
+                left = mid + 1;
+
+            } else {
+                right = mid;
+            }
+        }
+
+//        int prev = nums[left - 1];
+//        int prevMissingCount = missingCount(left - 1, nums);
+//        return prev + (n - prevMissingCount);
+       return nums[left - 1] + (n - missingCount (left-1,nums));
     }
 
 }
