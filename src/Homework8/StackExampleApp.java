@@ -37,12 +37,9 @@ public class StackExampleApp {
     public static Stack<Integer> reverse(Stack<Integer> s) {
         Stack<Integer> temp = new Stack<>();
         if (!s.empty()) {
-
             temp.push(s.pop());
-
             return reverse(s);
         }
-
         return temp;
     }
 }
